@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jms="http://www.springframework.org/schema/jms" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+	">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:mq.properties</value>
+            </list>
+        </property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+    </bean>
+
+	<!-- creates an activemq connection factory -->
+	<bean id="activeMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${jms.url}" />
+		<property name="userName" value="${jms.username}" />
+		<property name="password" value="${jms.password}" />
+	</bean>
+	
+	<!-- CachingConnectionFactory Definition -->
+	<bean id="jmsConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+		<constructor-arg ref="activeMQConnectionFactory" />
+		<property name="exceptionListener" ref="jmsExceptionListener" />
+		<property name="sessionCacheSize" value="100" />
+	</bean>
+
+	<!-- JmsTemplate Definition 发送数据使用，不用于接收数据 -->
+	<bean class="org.springframework.jms.core.JmsTemplate">
+		<constructor-arg ref="jmsConnectionFactory" />
+		<property name="sessionTransacted" value="true" />
+	</bean>
+	
+	<!-- listener container definition using the jms namespace, concurrency 
+		is the max number of concurrent listeners that can be started.
+		this is equivalent to creating multiple distinct listener container bean definitions 
+		and multiple distinct MessageListenerAdapter bean definitions 接收数据使用，不用于发送数据 -->
+	<jms:listener-container concurrency="10" connection-factory="jmsConnectionFactory" 
+		acknowledge="transacted"  
+		transaction-manager="jtaTransactionManager"
+		error-handler="jmsErrorHandler" 
+		destination-type="topic" >
+		<!-- 一个测试例子 -->
+		<jms:listener destination="topic.spring.tx" ref="topicMessageListener" />
+	</jms:listener-container>
+
+</beans>

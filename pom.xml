@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.yangwk</groupId>
+	<artifactId>platform</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>platform-db</module>
+		<module>platform-controller</module>
+		<module>platform-task</module>
+		<module>platform-aop</module>
+		<module>platform-bean</module>
+		<module>platform-common</module>
+		<module>platform-storage</module>
+		<module>platform-mq</module>
+		<module>platform-jta</module>
+		<module>platform-service</module>
+		<module>platform-log</module>
+		<module>platform-session</module>
+		<module>platform-soa-api</module>
+		<module>platform-soa</module>
+		<module>platform-soa-provider</module>
+		<module>platform-soa-consumer</module>
+		<module>platform-soa-test</module>
+		<module>platform-soa-test-consumer</module>
+	</modules>
+
+	<repositories>
+		<repository>
+			<id>yangwk-repo</id>
+			<url>https://raw.githubusercontent.com/yangwk/maven-repo/master/repository</url>
+		</repository>
+	</repositories>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.6</java.version>
+
+		<junit.version>4.12</junit.version>
+		<spring.version>4.3.7.RELEASE</spring.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+  	
+  	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:session.properties</value>
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+    </bean>
+    
+  	<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+  		<property name="redisNamespace" value="${redisNamespace}" />
+  	</bean>
+  	
+  	<!-- org.springframework.session.data.redis.RedisOperationsSessionRepository内部需要Scheduler
+  		maven依赖task 
+  		作用是避免出现重复TaskScheduler定义，共用相同的TaskScheduler
+  		org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor打印
+  		More than one TaskScheduler bean exists within the context
+  		-->
+ 	
+ 	<!-- 已在storage声明org.springframework.data.redis.connection.jedis.JedisConnectionFactory -->
+
+</beans>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>所有用户</title>
+</head>
+<body>
+	<div>
+		<table border="1">
+			<tr>
+				<th>id</th>
+				<th>身高</th>
+				<th>年龄</th>
+				<th>金钱</th>
+				<th>姓名</th>
+				<th>出生日期</th>
+				<th>父亲</th>
+			</tr>
+			@if( pageInfo.size == 0 ){
+			<tr>
+				<td colspan="7">查询不到数据</td>
+			</tr>
+			@}
+			@for( user in pageInfo.list ){
+			<tr>
+				<td>${user.id}</td>
+				<td>${user.height}</td>
+				<td>${user.age}</td>
+				<td>${user.money}</td>
+				<td>${user.name}</td>
+				<td>${user.birthDate , dateFormat="yyyy-MM-dd HH:mm:ss"}</td>
+				<td>${user.fatherName}</td>
+			</tr>
+			@}
+		</table>
+	</div>
+</body>
+</html>

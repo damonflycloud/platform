@@ -1,0 +1,10 @@
+@layout("./layout/head.html", {title:'首页'} ){
+	<link rel="stylesheet" href="test.css" type="text/css" />
+@}
+@layout("./layout/body.html"){
+	@include("./layout/top.html"){}
+	<div>
+	beetl布局演示
+	</div>
+	@include("./layout/bottom.html"){}
+@}

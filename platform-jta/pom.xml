@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.github.yangwk</groupId>
+		<artifactId>platform</artifactId>
+		<version>1.0</version>
+	</parent>
+	<artifactId>platform-jta</artifactId>
+
+	<properties>
+		<jta.version>1.1</jta.version>
+		<!-- aspectjweaver版本不能使用1.8.10及以上，否则现有配置不能对controller进行aop切面 -->
+		<aspectjweaver.version>1.8.9</aspectjweaver.version>
+		<atomikos.version>4.0.4</atomikos.version>
+	</properties>
+	
+	<dependencies>
+	
+		<dependency>
+			<groupId>com.github.yangwk</groupId>
+			<artifactId>platform-bean</artifactId>
+			<version>${version}</version>
+		</dependency>
+		
+		<!-- jta required -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>${jta.version}</version>
+		</dependency>
+
+		<!-- jta support -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectjweaver.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jta</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jdbc</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		
+		
+	</dependencies>
+</project>

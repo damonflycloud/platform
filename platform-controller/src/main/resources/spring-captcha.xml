@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    ">
+
+	<!-- https://jcaptcha.atlassian.net/wiki/display/general/JCaptcha+and+the+SpringFramework -->
+	
+	<bean class="com.octo.captcha.service.multitype.GenericManageableCaptchaService" scope="singleton">
+		<!-- 构造方法参数名对应 -->
+		<constructor-arg name="captchaEngine" ref="imageEngine"/>
+		<constructor-arg name="minGuarantedStorageDelayInSeconds" value="180"/>
+		<constructor-arg name="maxCaptchaStoreSize" value="180000"/>
+		<constructor-arg name="captchaStoreLoadBeforeGarbageCollection" value="75000"/>
+	</bean>
+	
+	<bean id="imageEngine" class="com.octo.captcha.engine.image.gimpy.GmailEngine" />
+	
+</beans>
